@@ -1,0 +1,60 @@
+<div class="row mb-4">
+  <div class="col-md-6">
+    <h2>Liste des Clients</h2>
+  </div>
+  <div class="col-md-6 text-end">
+    <a routerLink="/clients/new" class="btn btn-primary">Nouveau Client</a>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Rechercher un client..." [(ngModel)]="searchTerm">
+      <button class="btn btn-outline-secondary" type="button" (click)="searchTerm = ''">Effacer</button>
+    </div>
+  </div>
+</div>
+
+@if (error) {
+  <div class="alert alert-danger">{{ error }}</div>
+}
+
+@if (loading) {
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+} @else if (filteredClients.length === 0) {
+  <div class="alert alert-info">Aucun client trouvé.</div>
+} @else {
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (client of filteredClients; track client.id) {
+          <tr>
+            <td>{{ client.id }}</td>
+            <td>{{ client.nom }}</td>
+            <td>{{ client.email }}</td>
+            <td>
+              <div class="btn-group" role="group">
+                <a [routerLink]="['/clients', client.id]" class="btn btn-sm btn-info me-1">Détails</a>
+                <a [routerLink]="['/clients', client.id, 'edit']" class="btn btn-sm btn-warning me-1">Modifier</a>
+                <button (click)="deleteClient(client.id!)" class="btn btn-sm btn-danger">Supprimer</button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

@@ -1,0 +1,61 @@
+<div class="row mb-4">
+  <div class="col-12">
+    <h2>{{ isEditMode ? 'Modifier' : 'Créer' }} un Client</h2>
+  </div>
+</div>
+
+@if (error) {
+  <div class="alert alert-danger">{{ error }}</div>
+}
+
+@if (loading) {
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+} @else {
+  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="nom" class="form-label">Nom</label>
+      <input type="text" class="form-control" id="nom" formControlName="nom" 
+             [ngClass]="{ 'is-invalid': submitted && f['nom'].errors }">
+      @if (submitted && f['nom'].errors) {
+        <div class="invalid-feedback">
+          @if (f['nom'].errors['required']) {
+            Le nom est requis.
+          }
+          @if (f['nom'].errors['maxlength']) {
+            Le nom ne doit pas dépasser 100 caractères.
+          }
+        </div>
+      }
+    </div>
+    
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" formControlName="email"
+             [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+      @if (submitted && f['email'].errors) {
+        <div class="invalid-feedback">
+          @if (f['email'].errors['required']) {
+            L'email est requis.
+          }
+          @if (f['email'].errors['email']) {
+            Veuillez entrer une adresse email valide.
+          }
+          @if (f['email'].errors['maxlength']) {
+            L'email ne doit pas dépasser 100 caractères.
+          }
+        </div>
+      }
+    </div>
+    
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary me-2" [disabled]="loading">
+        {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+      </button>
+      <a routerLink="/clients" class="btn btn-secondary">Annuler</a>
+    </div>
+  </form>
+}

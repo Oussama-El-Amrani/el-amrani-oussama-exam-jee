@@ -1,0 +1,89 @@
+<div class="row mb-4">
+  <div class="col-md-6">
+    <h2>Détails du Client</h2>
+  </div>
+  <div class="col-md-6 text-end">
+    <a routerLink="/clients" class="btn btn-secondary me-2">Retour</a>
+    @if (client) {
+      <a [routerLink]="['/clients', client.id, 'edit']" class="btn btn-warning me-2">Modifier</a>
+      <button (click)="deleteClient()" class="btn btn-danger">Supprimer</button>
+    }
+  </div>
+</div>
+
+@if (error) {
+  <div class="alert alert-danger">{{ error }}</div>
+}
+
+@if (loading) {
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+} @else if (client) {
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="mb-0">Informations du client</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>ID:</strong> {{ client.id }}</p>
+          <p><strong>Nom:</strong> {{ client.nom }}</p>
+          <p><strong>Email:</strong> {{ client.email }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Crédits du client</h5>
+      <div>
+        <a [routerLink]="['/credits/personnel/new']" [queryParams]="{clientId: client.id}" class="btn btn-sm btn-primary me-1">Nouveau Crédit Personnel</a>
+        <a [routerLink]="['/credits/immobilier/new']" [queryParams]="{clientId: client.id}" class="btn btn-sm btn-primary me-1">Nouveau Crédit Immobilier</a>
+        <a [routerLink]="['/credits/professionnel/new']" [queryParams]="{clientId: client.id}" class="btn btn-sm btn-primary">Nouveau Crédit Professionnel</a>
+      </div>
+    </div>
+    <div class="card-body">
+      @if (credits.length === 0) {
+        <div class="alert alert-info">Ce client n'a pas encore de crédits.</div>
+      } @else {
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Montant</th>
+                <th>Date Demande</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (credit of credits; track credit.id) {
+                <tr>
+                  <td>{{ credit.id }}</td>
+                  <td>{{ getCreditTypeLabel(credit.creditType) }}</td>
+                  <td>{{ credit.montant | currency:'EUR' }}</td>
+                  <td>{{ credit.dateDemande | date:'dd/MM/yyyy' }}</td>
+                  <td><span [class]="getStatusClass(credit.statut)">{{ credit.statut }}</span></td>
+                  <td>
+                    <div class="btn-group" role="group">
+                      <a [routerLink]="['/credits', credit.creditType.toLowerCase(), credit.id]" class="btn btn-sm btn-info me-1">Détails</a>
+                      <a [routerLink]="['/remboursements/credit', credit.id]" class="btn btn-sm btn-secondary">Remboursements</a>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="alert alert-warning">Client non trouvé.</div>
+}
