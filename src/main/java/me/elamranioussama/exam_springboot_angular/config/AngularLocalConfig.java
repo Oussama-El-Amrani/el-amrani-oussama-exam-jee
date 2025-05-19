@@ -1,4 +1,4 @@
-package io.bootify.exam_springboot_angular.config;
+package me.elamranioussama.exam_springboot_angular.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

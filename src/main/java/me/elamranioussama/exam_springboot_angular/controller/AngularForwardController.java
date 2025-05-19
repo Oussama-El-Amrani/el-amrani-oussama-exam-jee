@@ -1,4 +1,4 @@
-package io.bootify.exam_springboot_angular.controller;
+package me.elamranioussama.exam_springboot_angular.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

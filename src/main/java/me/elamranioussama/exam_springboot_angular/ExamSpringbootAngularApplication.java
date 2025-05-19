@@ -1,4 +1,4 @@
-package io.bootify.exam_springboot_angular;
+package me.elamranioussama.exam_springboot_angular;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
