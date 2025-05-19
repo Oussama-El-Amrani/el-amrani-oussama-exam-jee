@@ -14,7 +14,10 @@ public class ClientMapper implements EntityMapper<ClientDTO, Client> {
         }
 
         Client client = new Client();
-        client.setId(dto.getId());
+        // Only set ID if it's not a new entity (for updates)
+        if (dto.getId() != null && dto.getId() > 0 && dto.getId() < Long.MAX_VALUE) {
+            client.setId(dto.getId());
+        }
         client.setNom(dto.getNom());
         client.setEmail(dto.getEmail());
         return client;

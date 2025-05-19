@@ -19,7 +19,10 @@ public class RemboursementMapper implements EntityMapper<RemboursementDTO, Rembo
         }
 
         Remboursement remboursement = new Remboursement();
-        remboursement.setId(dto.getId());
+        // Only set ID if it's not a new entity (for updates)
+        if (dto.getId() != null && dto.getId() > 0 && dto.getId() < Long.MAX_VALUE) {
+            remboursement.setId(dto.getId());
+        }
         remboursement.setDate(dto.getDate());
         remboursement.setMontant(dto.getMontant());
         remboursement.setType(dto.getType());

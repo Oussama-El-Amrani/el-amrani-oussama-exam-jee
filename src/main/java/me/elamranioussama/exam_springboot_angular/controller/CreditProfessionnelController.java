@@ -39,6 +39,9 @@ public class CreditProfessionnelController {
 
     @PostMapping
     public ResponseEntity<CreditProfessionnelDTO> createCreditProfessionnel(@RequestBody CreditProfessionnelDTO creditDTO) {
+        // For new credits, ensure ID is not set
+        creditDTO.setId(null);
+
         CreditProfessionnel credit = (CreditProfessionnel) creditMapper.toEntity(creditDTO);
         CreditProfessionnel savedCredit = creditProfessionnelService.saveCreditProfessionnel(credit);
         return new ResponseEntity<>((CreditProfessionnelDTO) creditMapper.toDto(savedCredit), HttpStatus.CREATED);

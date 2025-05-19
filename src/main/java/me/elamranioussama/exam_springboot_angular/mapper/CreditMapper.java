@@ -77,7 +77,10 @@ public class CreditMapper {
             throw new IllegalArgumentException("Unknown credit type");
         }
 
-        credit.setId(dto.getId());
+        // Only set ID if it's not a new entity (for updates)
+        if (dto.getId() != null && dto.getId() > 0 && dto.getId() < Long.MAX_VALUE) {
+            credit.setId(dto.getId());
+        }
         credit.setDateDemande(dto.getDateDemande());
         credit.setStatut(dto.getStatut());
         credit.setDateAcception(dto.getDateAcception());

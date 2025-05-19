@@ -39,6 +39,9 @@ public class CreditImmobilierController {
 
     @PostMapping
     public ResponseEntity<CreditImmobilierDTO> createCreditImmobilier(@RequestBody CreditImmobilierDTO creditDTO) {
+        // For new credits, ensure ID is not set
+        creditDTO.setId(null);
+
         CreditImmobilier credit = (CreditImmobilier) creditMapper.toEntity(creditDTO);
         CreditImmobilier savedCredit = creditImmobilierService.saveCreditImmobilier(credit);
         return new ResponseEntity<>((CreditImmobilierDTO) creditMapper.toDto(savedCredit), HttpStatus.CREATED);

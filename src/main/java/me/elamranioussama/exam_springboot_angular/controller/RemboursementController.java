@@ -37,6 +37,8 @@ public class RemboursementController {
 
     @PostMapping
     public ResponseEntity<RemboursementDTO> createRemboursement(@RequestBody RemboursementDTO remboursementDTO) {
+        // For new repayments, ensure ID is not set
+        remboursementDTO.setId(null);
         return new ResponseEntity<>(remboursementService.save(remboursementDTO), HttpStatus.CREATED);
     }
 
