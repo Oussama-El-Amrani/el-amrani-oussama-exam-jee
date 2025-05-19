@@ -1,10 +1,6 @@
 package me.elamranioussama.exam_springboot_angular.entity;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +20,4 @@ public class Client {
 
     @OneToMany(mappedBy = "client")
     private List<Credit> credits;
-
-    // Getters and setters
 }

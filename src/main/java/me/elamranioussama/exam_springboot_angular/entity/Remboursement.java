@@ -22,6 +22,4 @@ public class Remboursement {
     @ManyToOne
     @JoinColumn(name = "credit_id")
     private Credit credit;
-
-    // Getters and setters
 }

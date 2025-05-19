@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Data
 @AllArgsConstructor
 public class CreditImmobilier extends Credit {
     private String typeBien; // Appartement, Maison, Local Commercial
-    // Getters and setters
 }

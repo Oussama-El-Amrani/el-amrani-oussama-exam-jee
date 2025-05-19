@@ -28,8 +28,6 @@ public abstract class Credit {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @OneToMany(mappedBy = "credit")
+    @OneToMany(mappedBy = "credit", cascade = CascadeType.ALL)
     private List<Remboursement> remboursements;
-
-    // Getters and setters
 }
