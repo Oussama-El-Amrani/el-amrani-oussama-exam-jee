@@ -82,8 +82,10 @@
             <td>
               <div class="btn-group" role="group">
                 <a [routerLink]="['/credits', credit.creditType.toLowerCase(), credit.id]" class="btn btn-sm btn-info me-1">Détails</a>
-                <button *ngIf="credit.statut === creditStatut.EN_COURS" (click)="updateCreditStatus(credit.id!, creditStatut.ACCEPTE)" class="btn btn-sm btn-success me-1">Accepter</button>
-                <button *ngIf="credit.statut === creditStatut.EN_COURS" (click)="updateCreditStatus(credit.id!, creditStatut.REJETE)" class="btn btn-sm btn-danger me-1">Rejeter</button>
+                @if (credit.statut === creditStatut.EN_COURS) {
+                  <button (click)="updateCreditStatus(credit.id!, creditStatut.ACCEPTE)" class="btn btn-sm btn-success me-1">Accepter</button>
+                  <button (click)="updateCreditStatus(credit.id!, creditStatut.REJETE)" class="btn btn-sm btn-danger me-1">Rejeter</button>
+                }
                 <a [routerLink]="['/remboursements/credit', credit.id]" class="btn btn-sm btn-secondary me-1">Remboursements</a>
                 <button (click)="deleteCredit(credit.id!)" class="btn btn-sm btn-danger">Supprimer</button>
               </div>
