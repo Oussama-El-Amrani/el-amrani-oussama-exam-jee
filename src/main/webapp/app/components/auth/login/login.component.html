@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0">Connexion</h4>
+      </div>
+      <div class="card-body">
+        @if (error) {
+          <div class="alert alert-danger">{{error}}</div>
+        }
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="username" class="form-label">Nom d'utilisateur</label>
+            <input type="text" formControlName="username" class="form-control" id="username" 
+                   [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
+            @if (submitted && f['username'].errors) {
+              <div class="invalid-feedback">
+                Le nom d'utilisateur est requis
+              </div>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input type="password" formControlName="password" class="form-control" id="password" 
+                   [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+            @if (submitted && f['password'].errors) {
+              <div class="invalid-feedback">
+                Le mot de passe est requis
+              </div>
+            }
+          </div>
+          <div class="d-grid gap-2">
+            <button [disabled]="loading" class="btn btn-primary">
+              @if (loading) {
+                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+              }
+              Connexion
+            </button>
+          </div>
+        </form>
+        <div class="mt-3 text-center">
+          <p>Vous n'avez pas de compte? <a routerLink="/register">S'inscrire</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

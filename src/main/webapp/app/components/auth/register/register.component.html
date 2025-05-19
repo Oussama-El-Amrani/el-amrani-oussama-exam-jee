@@ -1,0 +1,95 @@
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0">Inscription</h4>
+      </div>
+      <div class="card-body">
+        @if (error) {
+          <div class="alert alert-danger">{{error}}</div>
+        }
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="firstName" class="form-label">Prénom</label>
+              <input type="text" formControlName="firstName" class="form-control" id="firstName" 
+                     [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }" />
+              @if (submitted && f['firstName'].errors) {
+                <div class="invalid-feedback">
+                  Le prénom est requis
+                </div>
+              }
+            </div>
+            <div class="col-md-6">
+              <label for="lastName" class="form-label">Nom</label>
+              <input type="text" formControlName="lastName" class="form-control" id="lastName" 
+                     [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" />
+              @if (submitted && f['lastName'].errors) {
+                <div class="invalid-feedback">
+                  Le nom est requis
+                </div>
+              }
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="username" class="form-label">Nom d'utilisateur</label>
+            <input type="text" formControlName="username" class="form-control" id="username" 
+                   [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
+            @if (submitted && f['username'].errors) {
+              <div class="invalid-feedback">
+                Le nom d'utilisateur est requis
+              </div>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" formControlName="email" class="form-control" id="email" 
+                   [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+            @if (submitted && f['email'].errors) {
+              <div class="invalid-feedback">
+                @if (f['email'].errors['required']) {
+                  L'email est requis
+                } @else if (f['email'].errors['email']) {
+                  Veuillez entrer une adresse email valide
+                }
+              </div>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input type="password" formControlName="password" class="form-control" id="password" 
+                   [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+            @if (submitted && f['password'].errors) {
+              <div class="invalid-feedback">
+                @if (f['password'].errors['required']) {
+                  Le mot de passe est requis
+                } @else if (f['password'].errors['minlength']) {
+                  Le mot de passe doit contenir au moins 6 caractères
+                }
+              </div>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="role" class="form-label">Rôle</label>
+            <select formControlName="role" class="form-select" id="role">
+              <option [value]="userRoles.ROLE_CLIENT">Client</option>
+              <option [value]="userRoles.ROLE_EMPLOYE">Employé</option>
+              <option [value]="userRoles.ROLE_ADMIN">Administrateur</option>
+            </select>
+          </div>
+          <div class="d-grid gap-2">
+            <button [disabled]="loading" class="btn btn-primary">
+              @if (loading) {
+                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+              }
+              S'inscrire
+            </button>
+          </div>
+        </form>
+        <div class="mt-3 text-center">
+          <p>Vous avez déjà un compte? <a routerLink="/login">Se connecter</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
