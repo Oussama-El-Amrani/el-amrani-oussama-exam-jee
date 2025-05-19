@@ -1,42 +1,56 @@
 package me.elamranioussama.exam_springboot_angular.controller;
 
+import me.elamranioussama.exam_springboot_angular.dto.ClientDTO;
 import me.elamranioussama.exam_springboot_angular.entity.Client;
+import me.elamranioussama.exam_springboot_angular.mapper.ClientMapper;
 import me.elamranioussama.exam_springboot_angular.service.IClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/clients")
 public class ClientController {
 
     private final IClientService clientService;
+    private final ClientMapper mapper;
 
-    public ClientController(IClientService clientService) {
+    public ClientController(IClientService clientService, ClientMapper mapper) {
         this.clientService = clientService;
+        this.mapper = mapper;
     }
 
     @GetMapping
-    public ResponseEntity<List<Client>> getAllClients() {
-        return ResponseEntity.ok(clientService.getAllClients());
+    public ResponseEntity<List<ClientDTO>> getAllClients() {
+        return ResponseEntity.ok(clientService.getAllClients().stream()
+            .map(mapper::toDto)
+            .collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Client> getClientById(@PathVariable Long id) {
-        return ResponseEntity.ok(clientService.getClientById(id));
+    public ResponseEntity<ClientDTO> getClientById(@PathVariable Long id) {
+        return ResponseEntity.ok(mapper.toDto(clientService.getClientById(id)));
     }
 
     @PostMapping
-    public ResponseEntity<Client> createClient(@RequestBody Client client) {
-        return new ResponseEntity<>(clientService.saveClient(client), HttpStatus.CREATED);
+    public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO dto) {
+
+        return new ResponseEntity<>(
+            mapper.toDto(
+                clientService.saveClient(mapper.toEntity(dto)
+                )
+            ), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client client) {
+    public ResponseEntity<ClientDTO> updateClient(@PathVariable Long id, @RequestBody ClientDTO client) {
         client.setId(id);
-        return ResponseEntity.ok(clientService.updateClient(client));
+        return ResponseEntity.ok(mapper.toDto(clientService.updateClient(
+            mapper.toEntity(client)
+        )));
     }
 
     @DeleteMapping("/{id}")
@@ -46,7 +60,9 @@ public class ClientController {
     }
 
     @GetMapping("/with-credits")
-    public ResponseEntity<List<Client>> getClientsWithCredits() {
-        return ResponseEntity.ok(clientService.getClientsWithCredits());
+    public ResponseEntity<List<ClientDTO>> getClientsWithCredits() {
+        return ResponseEntity.ok(clientService.getClientsWithCredits().stream()
+            .map(mapper::toDto)
+            .collect(Collectors.toList()));
     }
 }

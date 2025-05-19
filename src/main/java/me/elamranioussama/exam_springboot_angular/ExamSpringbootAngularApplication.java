@@ -27,11 +27,11 @@ public class ExamSpringbootAngularApplication {
 
     @Bean
     CommandLineRunner initDatabase(
-                   ClientRepository clientRepository,
-            CreditPersonnelRepository creditPersonnelRepository,
-            CreditImmobilierRepository creditImmobilierRepository,
-            CreditProfessionnelRepository creditProfessionnelRepository,
-            RemboursementRepository remboursementRepository
+        ClientRepository clientRepository,
+        CreditPersonnelRepository creditPersonnelRepository,
+        CreditImmobilierRepository creditImmobilierRepository,
+        CreditProfessionnelRepository creditProfessionnelRepository,
+        RemboursementRepository remboursementRepository
     ) {
         return args -> {
             System.out.println("Initializing database with test data...");
