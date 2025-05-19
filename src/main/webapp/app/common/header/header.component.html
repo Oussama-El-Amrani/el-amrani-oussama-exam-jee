@@ -10,19 +10,44 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Accueil</a>
                     </li>
-                    <li class="nav-item">
-                        <a routerLink="/clients" class="nav-link" routerLinkActive="active">Clients</a>
-                    </li>
-                    <li class="nav-item">
-                        <a routerLink="/credits" class="nav-link" routerLinkActive="active">Crédits</a>
-                    </li>
-                    <li class="nav-item">
-                        <a routerLink="/remboursements" class="nav-link" routerLinkActive="active">Remboursements</a>
-                    </li>
+                    @if (isLoggedIn) {
+                        @if (isAdmin() || isEmploye()) {
+                            <li class="nav-item">
+                                <a routerLink="/clients" class="nav-link" routerLinkActive="active">Clients</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a routerLink="/credits" class="nav-link" routerLinkActive="active">Crédits</a>
+                        </li>
+                        @if (isAdmin() || isEmploye()) {
+                            <li class="nav-item">
+                                <a routerLink="/remboursements" class="nav-link" routerLinkActive="active">Remboursements</a>
+                            </li>
+                        }
+                    }
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    @if (isLoggedIn) {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ username }} <span class="badge bg-secondary">{{ userRole }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#" (click)="logout(); $event.preventDefault()">Déconnexion</a></li>
+                            </ul>
+                        </li>
+                    } @else {
+                        <li class="nav-item">
+                            <a routerLink="/login" class="nav-link" routerLinkActive="active">Connexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/register" class="nav-link" routerLinkActive="active">Inscription</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </nav>
