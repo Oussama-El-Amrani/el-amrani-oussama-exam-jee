@@ -1,39 +1,54 @@
 <div class="row">
     <div class="col-12">
         <h1 class="mb-4">Gestion des Crédits Bancaires</h1>
-        <p class="lead mb-5">Bienvenue dans l'application de gestion des crédits bancaires. Utilisez les options ci-dessous pour gérer vos clients, crédits et remboursements.</p>
+        @if (isLoggedIn) {
+            <p class="lead mb-3">Bienvenue, <strong>{{ username }}</strong>! Vous êtes connecté en tant que <span class="badge bg-secondary">{{ userRole }}</span></p>
+            <p class="mb-5">Utilisez les options ci-dessous pour gérer vos crédits bancaires.</p>
+        } @else {
+            <p class="lead mb-5">Bienvenue dans l'application de gestion des crédits bancaires. Veuillez vous connecter ou vous inscrire pour accéder aux fonctionnalités.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-5">
+                <a routerLink="/login" class="btn btn-primary me-md-2">Connexion</a>
+                <a routerLink="/register" class="btn btn-outline-primary">Inscription</a>
+            </div>
+        }
     </div>
 </div>
 
-<div class="row mb-5">
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title">Clients</h5>
-                <p class="card-text">Gérer les clients et consulter leurs crédits.</p>
-                <a routerLink="/clients" class="btn btn-primary">Gérer les clients</a>
+@if (isLoggedIn) {
+    <div class="row mb-5">
+        @if (isAdmin() || isEmploye()) {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Clients</h5>
+                        <p class="card-text">Gérer les clients et consulter leurs crédits.</p>
+                        <a routerLink="/clients" class="btn btn-primary">Gérer les clients</a>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Crédits</h5>
+                    <p class="card-text">Gérer les différents types de crédits (Personnel, Immobilier, Professionnel).</p>
+                    <a routerLink="/credits" class="btn btn-primary">Gérer les crédits</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title">Crédits</h5>
-                <p class="card-text">Gérer les différents types de crédits (Personnel, Immobilier, Professionnel).</p>
-                <a routerLink="/credits" class="btn btn-primary">Gérer les crédits</a>
+        @if (isAdmin() || isEmploye()) {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Remboursements</h5>
+                        <p class="card-text">Gérer les remboursements des crédits.</p>
+                        <a routerLink="/remboursements" class="btn btn-primary">Gérer les remboursements</a>
+                    </div>
+                </div>
             </div>
-        </div>
+        }
     </div>
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title">Remboursements</h5>
-                <p class="card-text">Gérer les remboursements des crédits.</p>
-                <a routerLink="/remboursements" class="btn btn-primary">Gérer les remboursements</a>
-            </div>
-        </div>
-    </div>
-</div>
+}
 
 <div class="row">
     <div class="col-12">
