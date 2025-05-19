@@ -1,6 +1,45 @@
-<h1 class="mb-4" i18n="@@home.index.headline">Welcome to your new app!</h1>
-<p i18n="@@home.index.text">Your app was created with <a href="https://bootify.io" target="_blank">Bootify.io</a> and can now be customized. If you are happy with the result, <strong>please recommend us to other developers</strong> - so Bootify.io can grow further.</p>
-<p class="mb-5">
-    <span i18n="@@home.index.swagger.text">Swagger is</span>
-    <a [href]="environment.apiPath + '/swagger-ui.html'" target="_blank" i18n="@@home.index.swagger.link">available here</a>.
-</p>
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Gestion des Crédits Bancaires</h1>
+        <p class="lead mb-5">Bienvenue dans l'application de gestion des crédits bancaires. Utilisez les options ci-dessous pour gérer vos clients, crédits et remboursements.</p>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Clients</h5>
+                <p class="card-text">Gérer les clients et consulter leurs crédits.</p>
+                <a routerLink="/clients" class="btn btn-primary">Gérer les clients</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Crédits</h5>
+                <p class="card-text">Gérer les différents types de crédits (Personnel, Immobilier, Professionnel).</p>
+                <a routerLink="/credits" class="btn btn-primary">Gérer les crédits</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Remboursements</h5>
+                <p class="card-text">Gérer les remboursements des crédits.</p>
+                <a routerLink="/remboursements" class="btn btn-primary">Gérer les remboursements</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <p class="mb-3">
+            <span>Documentation API Swagger disponible </span>
+            <a [href]="environment.apiPath + '/swagger-ui.html'" target="_blank">ici</a>.
+        </p>
+    </div>
+</div>
