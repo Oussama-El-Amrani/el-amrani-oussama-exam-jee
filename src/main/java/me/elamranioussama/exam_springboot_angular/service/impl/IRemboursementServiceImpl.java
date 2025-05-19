@@ -6,8 +6,8 @@ import me.elamranioussama.exam_springboot_angular.entity.Remboursement;
 import me.elamranioussama.exam_springboot_angular.mapper.RemboursementMapper;
 import me.elamranioussama.exam_springboot_angular.repository.CreditRepository;
 import me.elamranioussama.exam_springboot_angular.repository.RemboursementRepository;
-import me.elamranioussama.exam_springboot_angular.service.CreditService;
-import me.elamranioussama.exam_springboot_angular.service.RemboursementService;
+import me.elamranioussama.exam_springboot_angular.service.ICreditService;
+import me.elamranioussama.exam_springboot_angular.service.IRemboursementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class RemboursementServiceImpl implements RemboursementService {
+public class IRemboursementServiceImpl implements IRemboursementService {
 
     @Autowired
     private RemboursementRepository remboursementRepository;
@@ -28,7 +28,7 @@ public class RemboursementServiceImpl implements RemboursementService {
     private CreditRepository creditRepository;
 
     @Autowired
-    private CreditService creditService;
+    private ICreditService creditService;
 
     @Autowired
     private RemboursementMapper remboursementMapper;
